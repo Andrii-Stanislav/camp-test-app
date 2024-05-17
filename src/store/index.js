@@ -1,15 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-// import { userReducer } from './user';
-// import { memesReducer } from './memes';
-// import { situationsReducer } from './situations';
-// import { gameReducer } from './game';
+import campersReducer from './slices/campers';
+import filterReducer from './slices/filter';
 
 const rootReducers = combineReducers({
-  // user: userReducer,
-  // memes: memesReducer,
-  // situations: situationsReducer,
-  // game: gameReducer,
+  campers: campersReducer,
+  filter: filterReducer,
 });
 
 export const store = configureStore({

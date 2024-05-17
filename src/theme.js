@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  breakpoints: {
+    xl: '1440px',
+  },
   palette: {
     primary: {
       main: '#556cd6',
@@ -10,6 +13,11 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: { padding: '24px 64px' },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -34,6 +42,26 @@ const theme = createTheme({
           boxShadow: 'none',
           '&:hover': {
             boxShadow: 'none',
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#E44848',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          color: '#475467',
+          '&.Mui-selected': {
+            color: '#E44848',
           },
         },
       },

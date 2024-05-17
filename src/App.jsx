@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { HomePage, CatalogPage, FavoritesPage } from './pages';
+import { MainNav } from './components';
 
 import theme from './theme';
 
@@ -11,6 +12,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <MainNav />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
