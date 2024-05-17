@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-// Create a theme instance.
 const theme = createTheme({
   palette: {
     primary: {
@@ -11,6 +10,34 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          background: '#F7F7F7',
+          borderRadius: '10px',
+          '& fieldset': {
+            border: 'none',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: '145px',
+          height: '56px',
+          borderRadius: '28px',
+          padding: '16px, 32px, 16px, 32px',
+          textTransform: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
     //
   },
 });
