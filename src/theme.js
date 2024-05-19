@@ -4,6 +4,9 @@ const theme = createTheme({
   breakpoints: {
     xl: '1440px',
   },
+  typography: {
+    fontFamily: ['Inter', 'sans-serif'].join(','),
+  },
   palette: {
     primary: {
       main: '#556cd6',
@@ -13,6 +16,13 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Inter',
+        },
+      },
+    },
     MuiContainer: {
       styleOverrides: {
         root: { padding: '24px 64px' },

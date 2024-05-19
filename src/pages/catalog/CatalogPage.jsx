@@ -1,9 +1,27 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import { InputAdornment, SvgIcon, Box, Typography } from '@mui/material';
 
 import { fetchCampers } from '../../store/operations/campers';
-import { getCampers } from '../../store/selectors';
+import {
+  changeLocation,
+  toggleEquipmentItem,
+  toggleVehicleType,
+} from '../../store/slices/filter';
+import {
+  getCampers,
+  isLoadingCampers,
+  getLocationFilter,
+  getEquipmentItemsFilter,
+  getVehicleTypeFilter,
+} from '../../store/selectors';
+
+import { TextField, FiltersBlock } from '../../components';
+
+import { ReactComponent as MapPinSvg } from '../../assets/svg/map-pin.svg';
+
+import { FILTER_ITEMS, VEHICLE_TYPE_ITEMS } from './constants';
 
 const ContentBox = styled.div`
   max-width: 1440px;
@@ -21,12 +39,35 @@ const RightContent = styled.div`
   flex-grow: 2;
 `;
 
+const FiltersText = styled(Typography)`
+  padding-bottom: 14px;
+  font-weight: 500;
+  color: #475467;
+`;
+
 export const CatalogPage = () => {
   const dispatch = useDispatch();
 
   const campers = useSelector(getCampers);
+  const isLoading = useSelector(isLoadingCampers);
 
-  console.log('campers: ', campers);
+  const location = useSelector(getLocationFilter);
+  const equipmentItems = useSelector(getEquipmentItemsFilter);
+  const vehicleType = useSelector(getVehicleTypeFilter);
+
+  console.log({ campers, isLoading, equipmentItems, vehicleType });
+
+  const handleLocationChange = (e) => {
+    dispatch(changeLocation(e.target.value));
+  };
+
+  const handleVehicleEquipmentChange = (value) => {
+    dispatch(toggleEquipmentItem(value));
+  };
+
+  const handleVehicleTypeChange = (value) => {
+    dispatch(toggleVehicleType(value));
+  };
 
   useEffect(() => {
     dispatch(fetchCampers({ page: 1, limit: 4 }));
@@ -35,14 +76,47 @@ export const CatalogPage = () => {
   return (
     <ContentBox>
       <LeftContent>
-        LeftContent
-        {/*
-         */}
+        <Box mb={4}>
+          <TextField
+            value={location}
+            onChange={handleLocationChange}
+            label="Location"
+            placeholder="Kyiv, Ukraine"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SvgIcon>
+                    <MapPinSvg />
+                  </SvgIcon>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+
+        <FiltersText>Filters</FiltersText>
+
+        <FiltersBlock
+          title="Vehicle equipment"
+          items={FILTER_ITEMS}
+          selectedItems={equipmentItems}
+          onItemClick={handleVehicleEquipmentChange}
+        />
+
+        <Box pt={4}>
+          <FiltersBlock
+            title="Vehicle type"
+            items={VEHICLE_TYPE_ITEMS}
+            selectedItems={[vehicleType]}
+            onItemClick={handleVehicleTypeChange}
+          />
+        </Box>
       </LeftContent>
       <RightContent>
         RightContent
         {/*
          */}
+        FiltersText
       </RightContent>
     </ContentBox>
   );
