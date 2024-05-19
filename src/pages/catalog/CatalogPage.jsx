@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { InputAdornment, SvgIcon, Box, Typography } from '@mui/material';
+import { InputAdornment, SvgIcon, Box, Typography, Stack } from '@mui/material';
 
 import { fetchCampers } from '../../store/operations/campers';
+import { setNextPage } from '../../store/slices/campers';
 import {
   changeLocation,
   toggleEquipmentItem,
@@ -11,7 +12,10 @@ import {
 } from '../../store/slices/filter';
 import {
   getCampers,
-  isLoadingCampers,
+  getCampersPage,
+  getCampersLimit,
+  getIsLoadingCampers,
+  getShowLoadMoreButton,
   getLocationFilter,
   getEquipmentItemsFilter,
   getVehicleTypeFilter,
@@ -23,6 +27,8 @@ import {
   CamperCard,
   CamperCardSkeleton,
   CamperList,
+  SecondaryButton,
+  SkeletonButton,
 } from '../../components';
 
 import { ReactComponent as MapPinSvg } from '../../assets/svg/map-pin.svg';
@@ -57,7 +63,10 @@ export const CatalogPage = () => {
   const dispatch = useDispatch();
 
   const campers = useSelector(getCampers);
-  const isLoading = useSelector(isLoadingCampers);
+  const page = useSelector(getCampersPage);
+  const limit = useSelector(getCampersLimit);
+  const isLoading = useSelector(getIsLoadingCampers);
+  const showLoadMoreButton = useSelector(getShowLoadMoreButton);
 
   const location = useSelector(getLocationFilter);
   const equipmentItems = useSelector(getEquipmentItemsFilter);
@@ -75,9 +84,13 @@ export const CatalogPage = () => {
     dispatch(toggleVehicleType(value));
   };
 
+  const handleLoadMoreClick = () => {
+    dispatch(setNextPage());
+  };
+
   useEffect(() => {
-    dispatch(fetchCampers({ page: 1, limit: 4 }));
-  }, [dispatch]);
+    dispatch(fetchCampers({ page, limit }));
+  }, [dispatch, page, limit]);
 
   return (
     <ContentBox>
@@ -133,11 +146,19 @@ export const CatalogPage = () => {
                   }
                 />
               ))}
-        </CamperList>
 
-        {/*
-        Show more
-         */}
+          {showLoadMoreButton && (
+            <Stack direction="row" justifyContent="center">
+              {isLoading ? (
+                <SkeletonButton />
+              ) : (
+                <SecondaryButton onClick={handleLoadMoreClick}>
+                  Load more
+                </SecondaryButton>
+              )}
+            </Stack>
+          )}
+        </CamperList>
       </RightContent>
     </ContentBox>
   );

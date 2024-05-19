@@ -4,7 +4,14 @@
 
 export const getCampers = (state) => state.campers.items;
 
-export const isLoadingCampers = (state) => state.campers.isLoading;
+export const getCampersPage = (state) => state.campers.page;
+
+export const getCampersLimit = (state) => state.campers.limit;
+
+export const getIsLoadingCampers = (state) => state.campers.isLoading;
+
+export const getShowLoadMoreButton = (state) =>
+  state.campers.showLoadMoreButton;
 
 // * filter
 

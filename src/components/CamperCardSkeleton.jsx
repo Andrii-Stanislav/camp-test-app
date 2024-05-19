@@ -2,6 +2,7 @@ import { Box, Stack, Skeleton } from '@mui/material';
 import styled from '@emotion/styled';
 
 import { ChipSkeleton } from './Chip';
+import { SkeletonButton } from './SkeletonButton';
 
 const Wrapper = styled(Box)`
   display: flex;
@@ -56,12 +57,7 @@ export const CamperCardSkeleton = () => {
         </Box>
 
         <Box>
-          <Skeleton
-            variant="rectangular"
-            width={145}
-            height={56}
-            style={{ borderRadius: 28 }}
-          />
+          <SkeletonButton />
         </Box>
       </InfoBlock>
     </Wrapper>

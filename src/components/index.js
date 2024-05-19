@@ -7,3 +7,4 @@ export * from './CamperCard';
 export * from './CamperCardSkeleton';
 export * from './Chip';
 export * from './CamperList';
+export * from './SkeletonButton';
