@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchCampers } from '../operations/campers';
 
-const onPending = state => ({ ...state, isLoading: true });
+const onPending = (state) => ({ ...state, isLoading: true });
 
 const onError = (state, action) => ({
   ...state,
@@ -21,14 +21,14 @@ export const campersSlice = createSlice({
   name: 'campers',
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       // * fetchCampers
       .addCase(fetchCampers.pending, onPending)
       .addCase(fetchCampers.fulfilled, (state, action) => ({
         ...state,
         isLoading: false,
-        items: action.payload.data,
+        items: action.payload,
       }))
       .addCase(fetchCampers.rejected, onError);
   },

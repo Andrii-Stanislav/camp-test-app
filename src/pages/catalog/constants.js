@@ -1,5 +1,5 @@
 import { ReactComponent as WindSvg } from '../../assets/svg/wind.svg';
-import { ReactComponent as AutomaticSvg } from '../../assets/svg/automatic.svg';
+import { ReactComponent as TransmissionSvg } from '../../assets/svg/transmission.svg';
 import { ReactComponent as KitchenSvg } from '../../assets/svg/kitchen.svg';
 import { ReactComponent as TvSvg } from '../../assets/svg/tv.svg';
 import { ReactComponent as ShowerSvg } from '../../assets/svg/shower.svg';
@@ -16,7 +16,7 @@ export const FILTER_ITEMS = [
   {
     value: 'automatic',
     text: 'Automatic',
-    icon: <AutomaticSvg />,
+    icon: <TransmissionSvg />,
   },
   {
     value: 'kitchen',

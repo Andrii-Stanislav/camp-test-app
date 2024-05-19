@@ -17,7 +17,13 @@ import {
   getVehicleTypeFilter,
 } from '../../store/selectors';
 
-import { TextField, FiltersBlock } from '../../components';
+import {
+  TextField,
+  FiltersBlock,
+  CamperCard,
+  CamperCardSkeleton,
+  CamperList,
+} from '../../components';
 
 import { ReactComponent as MapPinSvg } from '../../assets/svg/map-pin.svg';
 
@@ -26,7 +32,7 @@ import { FILTER_ITEMS, VEHICLE_TYPE_ITEMS } from './constants';
 const ContentBox = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  padding: 24px 64px;
+  padding: 24px 64px 0 64px;
   display: flex;
   gap: 64px;
 `;
@@ -45,6 +51,8 @@ const FiltersText = styled(Typography)`
   color: #475467;
 `;
 
+const SKELETON_CAMPERS = Array.from({ length: 4 }).map((_, index) => index);
+
 export const CatalogPage = () => {
   const dispatch = useDispatch();
 
@@ -54,8 +62,6 @@ export const CatalogPage = () => {
   const location = useSelector(getLocationFilter);
   const equipmentItems = useSelector(getEquipmentItemsFilter);
   const vehicleType = useSelector(getVehicleTypeFilter);
-
-  console.log({ campers, isLoading, equipmentItems, vehicleType });
 
   const handleLocationChange = (e) => {
     dispatch(changeLocation(e.target.value));
@@ -113,10 +119,25 @@ export const CatalogPage = () => {
         </Box>
       </LeftContent>
       <RightContent>
-        RightContent
+        <CamperList>
+          {isLoading
+            ? SKELETON_CAMPERS.map((_, index) => (
+                <CamperCardSkeleton key={index} />
+              ))
+            : (campers ?? []).map((camper) => (
+                <CamperCard
+                  key={camper._id}
+                  camperInfo={camper}
+                  onClickShowMore={() =>
+                    console.log('onClickShowMore: ', camper)
+                  }
+                />
+              ))}
+        </CamperList>
+
         {/*
+        Show more
          */}
-        FiltersText
       </RightContent>
     </ContentBox>
   );

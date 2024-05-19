@@ -10,6 +10,6 @@ const StyledButton = styled(MuiButton)`
   }
 `;
 
-export const PrimaryButton = ({ ...rest }) => {
-  return <StyledButton {...rest} variant="contained" />;
+export const PrimaryButton = (props) => {
+  return <StyledButton {...props} variant="contained" />;
 };

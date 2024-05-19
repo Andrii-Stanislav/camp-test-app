@@ -13,7 +13,7 @@ const FiltersList = styled(Box)`
   gap: 10px 8px;
 `;
 
-const FilterItem = styled(Box)`
+const FilterItem = styled(({ active, ...props }) => <Box {...props} />)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,8 +22,7 @@ const FilterItem = styled(Box)`
   min-width: 100px;
   height: 95px;
   padding: 12px;
-  border: 1px solid
-    ${({ isSelected }) => (isSelected ? '#E44848' : '#10182833')};
+  border: 1px solid ${({ active }) => (active ? '#E44848' : '#10182833')};
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
@@ -46,8 +45,8 @@ export const FiltersBlock = ({ title, items, selectedItems, onItemClick }) => {
       <FiltersList>
         {items.map((item) => (
           <FilterItem
-            key={item.id}
-            isSelected={selectedItems?.includes(item.value)}
+            key={item.value}
+            active={selectedItems?.includes(item.value)}
             onClick={onItemClick.bind(null, item.value)}
           >
             <SvgIcon style={{ width: 32, height: 32 }}>{item.icon}</SvgIcon>
