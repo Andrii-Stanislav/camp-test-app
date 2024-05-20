@@ -4,8 +4,13 @@ import { getCampers } from '../../api/campers';
 
 export const fetchCampers = createAsyncThunk(
   'campers/fetchCampers',
-  async ({ page, limit }) => {
-    const { data } = await getCampers({ page, limit });
+  async ({ limit, location, equipmentItems, vehicleType }) => {
+    const { data } = await getCampers({
+      limit,
+      location,
+      equipmentItems,
+      vehicleType,
+    });
 
     return data;
   },

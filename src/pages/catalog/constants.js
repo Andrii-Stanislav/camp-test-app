@@ -9,27 +9,27 @@ import { ReactComponent as Camper3 } from '../../assets/svg/camper-3.svg';
 
 export const FILTER_ITEMS = [
   {
-    value: 'ac',
+    value: 'details[airConditioner]=1',
     text: 'AC',
     icon: <WindSvg />,
   },
   {
-    value: 'automatic',
+    value: 'transmission=automatic',
     text: 'Automatic',
     icon: <TransmissionSvg />,
   },
   {
-    value: 'kitchen',
+    value: 'details[kitchen]=1',
     text: 'Kitchen',
     icon: <KitchenSvg />,
   },
   {
-    value: 'tv',
+    value: 'details[TV]=1',
     text: 'TV',
     icon: <TvSvg />,
   },
   {
-    value: 'shower-wc',
+    value: 'details[shower]=1',
     text: 'Shower/WC',
     icon: <ShowerSvg />,
   },
@@ -37,12 +37,12 @@ export const FILTER_ITEMS = [
 
 export const VEHICLE_TYPE_ITEMS = [
   {
-    value: 'van',
+    value: 'panelTruck',
     text: 'Van',
     icon: <Camper1 />,
   },
   {
-    value: 'fully-integrated',
+    value: 'fullyIntegrated',
     text: 'Fully Integrated',
     icon: <Camper2 />,
   },

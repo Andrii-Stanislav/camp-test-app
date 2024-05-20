@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { InputAdornment, SvgIcon, Box, Typography, Stack } from '@mui/material';
 
 import { fetchCampers } from '../../store/operations/campers';
-import { setNextPage } from '../../store/slices/campers';
+import { setFirstPage, setNextPage } from '../../store/slices/campers';
 import {
   changeLocation,
   toggleEquipmentItem,
@@ -15,7 +15,7 @@ import {
   getCampersPage,
   getCampersLimit,
   getIsLoadingCampers,
-  getShowLoadMoreButton,
+  getHideLoadMoreButton,
   getLocationFilter,
   getEquipmentItemsFilter,
   getVehicleTypeFilter,
@@ -66,21 +66,24 @@ export const CatalogPage = () => {
   const page = useSelector(getCampersPage);
   const limit = useSelector(getCampersLimit);
   const isLoading = useSelector(getIsLoadingCampers);
-  const showLoadMoreButton = useSelector(getShowLoadMoreButton);
+  const hideLoadMoreButton = useSelector(getHideLoadMoreButton);
 
   const location = useSelector(getLocationFilter);
   const equipmentItems = useSelector(getEquipmentItemsFilter);
   const vehicleType = useSelector(getVehicleTypeFilter);
 
   const handleLocationChange = (e) => {
+    dispatch(setFirstPage());
     dispatch(changeLocation(e.target.value));
   };
 
   const handleVehicleEquipmentChange = (value) => {
+    dispatch(setFirstPage());
     dispatch(toggleEquipmentItem(value));
   };
 
   const handleVehicleTypeChange = (value) => {
+    dispatch(setFirstPage());
     dispatch(toggleVehicleType(value));
   };
 
@@ -89,8 +92,8 @@ export const CatalogPage = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCampers({ page, limit }));
-  }, [dispatch, page, limit]);
+    dispatch(fetchCampers({ limit, location, equipmentItems, vehicleType }));
+  }, [dispatch, limit, location, equipmentItems, vehicleType]);
 
   return (
     <ContentBox>
@@ -147,17 +150,23 @@ export const CatalogPage = () => {
                 />
               ))}
 
-          {showLoadMoreButton && (
-            <Stack direction="row" justifyContent="center">
-              {isLoading ? (
-                <SkeletonButton />
-              ) : (
+          <Stack direction="row" justifyContent="center">
+            {campers?.length === 0 && !isLoading && (
+              <Typography>No cumpers found</Typography>
+            )}
+          </Stack>
+
+          <Stack direction="row" justifyContent="center">
+            {isLoading && <SkeletonButton />}
+
+            {!isLoading &&
+              !hideLoadMoreButton &&
+              !(page === 1 && campers.length === 0) && (
                 <SecondaryButton onClick={handleLoadMoreClick}>
                   Load more
                 </SecondaryButton>
               )}
-            </Stack>
-          )}
+          </Stack>
         </CamperList>
       </RightContent>
     </ContentBox>

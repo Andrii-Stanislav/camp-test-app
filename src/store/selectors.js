@@ -10,8 +10,8 @@ export const getCampersLimit = (state) => state.campers.limit;
 
 export const getIsLoadingCampers = (state) => state.campers.isLoading;
 
-export const getShowLoadMoreButton = (state) =>
-  state.campers.showLoadMoreButton;
+export const getHideLoadMoreButton = (state) =>
+  state.campers.hideLoadMoreButton;
 
 // * filter
 
