@@ -63,7 +63,11 @@ const Description = styled(Typography)`
   overflow: hidden;
 `;
 
-export const CamperCard = ({ camperInfo, onClickShowMore }) => {
+export const CamperCard = ({
+  camperInfo,
+  onClickShowMore,
+  afterFavoriteClick,
+}) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavoriteClick = () => {
@@ -74,6 +78,8 @@ export const CamperCard = ({ camperInfo, onClickShowMore }) => {
       favoritesService.add(camperInfo);
       setIsFavorite(true);
     }
+
+    afterFavoriteClick?.();
   };
 
   useEffect(() => {
@@ -94,7 +100,7 @@ export const CamperCard = ({ camperInfo, onClickShowMore }) => {
             <Title>{camperInfo?.name}</Title>
 
             <Stack direction="row" alignItems="center" gap={1}>
-              <BoldText>€{camperInfo?.price}</BoldText>
+              <BoldText>€{camperInfo?.price?.toFixed(2)}</BoldText>
 
               <Checkbox
                 checked={isFavorite}

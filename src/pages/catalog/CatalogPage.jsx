@@ -24,8 +24,6 @@ import {
 import {
   TextField,
   FiltersBlock,
-  CamperCard,
-  CamperCardSkeleton,
   CamperList,
   SecondaryButton,
   SkeletonButton,
@@ -56,8 +54,6 @@ const FiltersText = styled(Typography)`
   font-weight: 500;
   color: #475467;
 `;
-
-const SKELETON_CAMPERS = Array.from({ length: 4 }).map((_, index) => index);
 
 export const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -94,6 +90,12 @@ export const CatalogPage = () => {
   useEffect(() => {
     dispatch(fetchCampers({ limit, location, equipmentItems, vehicleType }));
   }, [dispatch, limit, location, equipmentItems, vehicleType]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setFirstPage());
+    };
+  }, [dispatch]);
 
   return (
     <ContentBox>
@@ -135,39 +137,23 @@ export const CatalogPage = () => {
         </Box>
       </LeftContent>
       <RightContent>
-        <CamperList>
-          {isLoading
-            ? SKELETON_CAMPERS.map((_, index) => (
-                <CamperCardSkeleton key={index} />
-              ))
-            : (campers ?? []).map((camper) => (
-                <CamperCard
-                  key={camper._id}
-                  camperInfo={camper}
-                  onClickShowMore={() =>
-                    console.log('onClickShowMore: ', camper)
-                  }
-                />
-              ))}
+        <CamperList
+          campers={campers}
+          isLoading={isLoading}
+          loadMoreButton={
+            <Stack direction="row" justifyContent="center">
+              {isLoading && <SkeletonButton />}
 
-          <Stack direction="row" justifyContent="center">
-            {campers?.length === 0 && !isLoading && (
-              <Typography>No cumpers found</Typography>
-            )}
-          </Stack>
-
-          <Stack direction="row" justifyContent="center">
-            {isLoading && <SkeletonButton />}
-
-            {!isLoading &&
-              !hideLoadMoreButton &&
-              !(page === 1 && campers.length === 0) && (
-                <SecondaryButton onClick={handleLoadMoreClick}>
-                  Load more
-                </SecondaryButton>
-              )}
-          </Stack>
-        </CamperList>
+              {!isLoading &&
+                !hideLoadMoreButton &&
+                !(page === 1 && campers.length === 0) && (
+                  <SecondaryButton onClick={handleLoadMoreClick}>
+                    Load more
+                  </SecondaryButton>
+                )}
+            </Stack>
+          }
+        />
       </RightContent>
     </ContentBox>
   );
