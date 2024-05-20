@@ -1,12 +1,13 @@
 import { Box, Stack, Typography, Checkbox, SvgIcon } from '@mui/material';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ReactComponent as StarSvg } from '../assets/svg/star.svg';
 import { ReactComponent as HeartSvg } from '../assets/svg/heart.svg';
 import { ReactComponent as HeartRedSvg } from '../assets/svg/heart-red.svg';
 import { ReactComponent as MapPinSvg } from '../assets/svg/map-pin.svg';
 import { useCamperTags } from '../hooks/useCamperTags';
+import { favoritesService } from '../utils/favorites-service';
 
 import { PrimaryButton } from './PrimaryButton';
 import { Chip } from './Chip';
@@ -63,8 +64,21 @@ const Description = styled(Typography)`
 `;
 
 export const CamperCard = ({ camperInfo, onClickShowMore }) => {
-  // TODO - move his logic to API or local storage
-  const [checked, setChecked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      favoritesService.remove(camperInfo?._id);
+      setIsFavorite(false);
+    } else {
+      favoritesService.add(camperInfo);
+      setIsFavorite(true);
+    }
+  };
+
+  useEffect(() => {
+    setIsFavorite(favoritesService.isFavorite(camperInfo?._id));
+  }, [camperInfo?._id]);
 
   const tags = useCamperTags(camperInfo);
 
@@ -83,8 +97,8 @@ export const CamperCard = ({ camperInfo, onClickShowMore }) => {
               <BoldText>€{camperInfo?.price}</BoldText>
 
               <Checkbox
-                value={checked}
-                onChange={(e) => setChecked(e.target.checked)}
+                checked={isFavorite}
+                onChange={handleFavoriteClick}
                 icon={
                   <SvgIcon>
                     <HeartSvg />
