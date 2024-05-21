@@ -59,7 +59,14 @@ export const CamperList = ({
       </List>
 
       <Modal open={Boolean(modalCamper)} onClose={handleClose}>
-        <>{modalCamper && <CamperModalContent camperInfo={modalCamper} />}</>
+        <>
+          {modalCamper && (
+            <CamperModalContent
+              camperInfo={modalCamper}
+              onClose={handleClose}
+            />
+          )}
+        </>
       </Modal>
     </>
   );

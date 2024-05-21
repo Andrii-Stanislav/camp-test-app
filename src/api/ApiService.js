@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'https://6647202351e227f23ab12c58.mockapi.io/camp-test-app/',
   headers: {
     'Access-Control-Allow-Origin': '*',
   },

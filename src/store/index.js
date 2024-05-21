@@ -10,5 +10,4 @@ const rootReducers = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducers,
-  devTools: process.env.NODE_ENV !== 'production',
 });
