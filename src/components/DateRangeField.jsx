@@ -21,6 +21,19 @@ const StyledDateRangePicker = styled(DateRangePicker)`
   line-height: 24px;
   color: #10182899;
 
+  .react-calendar {
+    border-radius: 12px;
+    border-color: #10182833;
+  }
+
+  .react-calendar__month-view__weekdays__weekday > * {
+    text-decoration-line: none;
+  }
+
+  .react-daterange-picker__inputGroup__input:invalid {
+    background-color: transparent;
+  }
+
   .react-daterange-picker__wrapper {
     border: none;
   }
@@ -48,7 +61,11 @@ const StyledDateRangePicker = styled(DateRangePicker)`
   }
 
   .react-calendar__tile--now {
-    background-color: #fff;
+    background-color: unset;
+  }
+
+  .react-calendar__tile--now.react-calendar__tile--active {
+    background-color: #006edc;
   }
 `;
 export const DateRangeField = ({ error, helperText, ...props }) => {
