@@ -27,6 +27,7 @@ import {
   CamperList,
   SecondaryButton,
   SkeletonButton,
+  PrimaryButton,
 } from '../../components';
 
 import { ReactComponent as MapPinSvg } from '../../assets/svg/map-pin.svg';
@@ -85,11 +86,23 @@ export const CatalogPage = () => {
 
   const handleLoadMoreClick = () => {
     dispatch(setNextPage());
+    dispatch(fetchCampers({ limit, location, equipmentItems, vehicleType }));
+  };
+
+  const onSearchClick = () => {
+    dispatch(fetchCampers({ limit, location, equipmentItems, vehicleType }));
   };
 
   useEffect(() => {
-    dispatch(fetchCampers({ limit, location, equipmentItems, vehicleType }));
-  }, [dispatch, limit, location, equipmentItems, vehicleType]);
+    dispatch(
+      fetchCampers({
+        limit: 4,
+        location: '',
+        equipmentItems: [],
+        vehicleType: null,
+      }),
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {
@@ -134,6 +147,10 @@ export const CatalogPage = () => {
             selectedItems={[vehicleType]}
             onItemClick={handleVehicleTypeChange}
           />
+        </Box>
+
+        <Box pt={8}>
+          <PrimaryButton onClick={onSearchClick}>Search</PrimaryButton>
         </Box>
       </LeftContent>
       <RightContent>
