@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/camp-test-app/static/css/main.87c695b1.css",
-    "main.js": "/camp-test-app/static/js/main.8d4a1791.js",
+    "main.js": "/camp-test-app/static/js/main.fc739282.js",
     "static/media/wind.svg": "/camp-test-app/static/media/wind.e958509129baf1cbc457d03d571594e6.svg",
     "static/media/camper-3.svg": "/camp-test-app/static/media/camper-3.42f6f348a1f9e0120f59b438e1dbf867.svg",
     "static/media/camper-1.svg": "/camp-test-app/static/media/camper-1.ba4ff80e1b014735794b43470f24f489.svg",
@@ -23,10 +23,10 @@
     "static/media/kitchen.svg": "/camp-test-app/static/media/kitchen.afe6130490e04e1ebb0a3c725651ff4c.svg",
     "static/media/close.svg": "/camp-test-app/static/media/close.a41383a6ca05e84ef531af2e2175e6ef.svg",
     "main.87c695b1.css.map": "/camp-test-app/static/css/main.87c695b1.css.map",
-    "main.8d4a1791.js.map": "/camp-test-app/static/js/main.8d4a1791.js.map"
+    "main.fc739282.js.map": "/camp-test-app/static/js/main.fc739282.js.map"
   },
   "entrypoints": [
     "static/css/main.87c695b1.css",
-    "static/js/main.8d4a1791.js"
+    "static/js/main.fc739282.js"
   ]
 }
